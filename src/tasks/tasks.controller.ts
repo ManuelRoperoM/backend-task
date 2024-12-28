@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TasksEntity } from './tasks.entity';
 
@@ -29,5 +29,18 @@ export class TasksController {
     @Post()
     create(@Body() data: Partial<TasksEntity>): Promise<TasksEntity> {
       return this.taskService.create(data);
+    }
+
+    @Put(':id')
+    updateTask(  
+      @Param('id') id: number,
+      @Body() data: Partial<TasksEntity>
+    ): Promise<TasksEntity[]> {
+      return this.taskService.updateTaskById(id, data);
+    }
+
+    @Delete(':id')
+    deleteTask(@Param('id') id: number): Promise<unknown> {
+      return this.taskService.deleteTaskById(id);
     }
 }

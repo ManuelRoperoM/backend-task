@@ -39,10 +39,26 @@ export class TasksService {
         }
       }
 
-      async getTaskById(id): Promise<TasksEntity[]> {
+      async getTaskById(id: number): Promise<TasksEntity[]> {
         return this.tasksRepository.find({
             where: {id: id}
         })
       }
 
+      async updateTaskById(id: number ,data) : Promise<TasksEntity[]> {
+        this.tasksRepository.update(id, data)
+        return this.getTaskById(id);
+      }
+
+      async deleteTaskById(id: number): Promise<unknown> {
+        try {
+          this.tasksRepository.delete(id);
+          return {status: 'ok', msge: `Tarea con id=${id} eliminada correctamente`}
+        } catch (error) {
+          return { status: 'error', msge: `Error inesperado : ${error}` }
+          
+        }
+        
+
+      }
 }
