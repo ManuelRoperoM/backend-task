@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TasksEntity } from './tasks.entity';
 import { CreateTaskDto } from './dto/create-tasks.dto';
@@ -6,6 +6,7 @@ import { ResponseCreateTaskDto } from './dto/response-create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ResponseUpdateTaskDto } from './dto/response-update-task.dto';
 import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+
 
 @Controller('tasks')
 export class TasksController {
