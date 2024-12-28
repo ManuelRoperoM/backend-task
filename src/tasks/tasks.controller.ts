@@ -1,13 +1,17 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TasksEntity } from './tasks.entity';
+import { CreateTaskDto } from './dto/create-tasks.dto';
+import { ResponseCreateTaskDto } from './dto/response-create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
+import { ResponseUpdateTaskDto } from './dto/response-update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
     constructor(private readonly taskService: TasksService) {}
 
     @Get()
-    getTaskById(@Query('id') id?: number): Promise<TasksEntity[]> {
+    getTaskById(@Query('id') id?: number): Promise<unknown> {
         if (id) {
             return this.taskService.getTaskById(id);
         } else {
@@ -27,15 +31,15 @@ export class TasksController {
     }
   
     @Post()
-    create(@Body() data: Partial<TasksEntity>): Promise<TasksEntity> {
+    create(@Body() data: CreateTaskDto): Promise<ResponseCreateTaskDto> {
       return this.taskService.create(data);
     }
 
     @Put(':id')
     updateTask(  
       @Param('id') id: number,
-      @Body() data: Partial<TasksEntity>
-    ): Promise<TasksEntity[]> {
+      @Body() data: UpdateTaskDto
+    ): Promise<ResponseUpdateTaskDto> {
       return this.taskService.updateTaskById(id, data);
     }
 
