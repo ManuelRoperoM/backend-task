@@ -12,9 +12,7 @@ export class UserService {
 
     async findOneByUsername(name: string): Promise<UserEntity | undefined> {
         return this.userRepository.findOne({
-            where: { name },  // Asegúrate de que 'username' sea el campo correcto
+            where: { name },
         });
     }
-
-    // Puedes agregar otros métodos aquí según tus necesidades
 }

@@ -5,9 +5,11 @@ import { CreateTaskDto } from './dto/create-tasks.dto';
 import { ResponseCreateTaskDto } from './dto/response-create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ResponseUpdateTaskDto } from './dto/response-update-task.dto';
-import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TasksController {
     constructor(private readonly taskService: TasksService) {}
@@ -52,7 +54,7 @@ export class TasksController {
           }
         return this.taskService.getFilterTasks(taskStatus);
     }
-  
+    
     @Post()
     @ApiOperation({ summary: 'Crear una nueva tarea' })
     @ApiResponse({

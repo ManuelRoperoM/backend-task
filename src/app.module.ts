@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksEntity } from './tasks/tasks.entity';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -19,7 +20,7 @@ import { UserEntity } from './user/user.entity';
     synchronize: true,
   }),
   TypeOrmModule.forFeature([TasksEntity, UserEntity]), 
-    TasksModule, UserModule],
+    TasksModule, UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

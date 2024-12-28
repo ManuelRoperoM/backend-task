@@ -8,6 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
+                  .addBearerAuth()
                   .setTitle('Task Manager')
                   .setDescription('API para gestionar tareas')
                   .setVersion('1.0')
