@@ -23,4 +23,26 @@ export class TasksService {
         return this.tasksRepository.save(entity);
       }
 
+      async getFilterTasks(taskStatus): Promise<TasksEntity[]> {
+        if (taskStatus) {
+            if (taskStatus === 'completed') {
+                return this.tasksRepository.find({
+                    where: { completed:true },
+                  });
+            } else {
+                return this.tasksRepository.find({
+                    where: { completed:false },
+                  });
+            }
+        }else {
+            return this.findAll()
+        }
+      }
+
+      async getTaskById(id): Promise<TasksEntity[]> {
+        return this.tasksRepository.find({
+            where: {id: id}
+        })
+      }
+
 }
