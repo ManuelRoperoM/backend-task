@@ -11,7 +11,8 @@ import { JwtStrategy } from './jwt.strategy';
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       global: true,
-      secret: 'secret', //Crear variable de entorno
+      // secret: String(process.env.JWT_SECRET),
+      secret: 'secret',
       signOptions: { expiresIn: '1h' },
     }),
   ], 

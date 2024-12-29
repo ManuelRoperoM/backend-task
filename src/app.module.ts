@@ -7,15 +7,19 @@ import { TasksEntity } from './tasks/tasks.entity';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'root',
-    database: 'task_manager',
+    username: String(process.env.DB_USERNAME),
+    password: String(process.env.DB_PASSWORD),
+    port: parseInt(process.env.DB_PORT, 10),
+    host: String(process.env.DB_HOST),
+    database: String(process.env.DB_DATABASE),
     entities: [TasksEntity, UserEntity],
     synchronize: true,
   }),
@@ -24,4 +28,8 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {}
+}
+
+
