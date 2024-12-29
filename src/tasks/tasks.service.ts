@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { TasksEntity } from './tasks.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -48,9 +48,11 @@ export class TasksService {
       }
 
       async getTaskById(id: number): Promise<TasksEntity> {
-        return this.tasksRepository.findOne({
-            where: {id: id}
+        const task = await this.tasksRepository.findOne({
+          where: {id: id}
         })
+        if (!task) throw new HttpException("Tarea no encontrada", HttpStatus.NOT_FOUND)
+        return task
       }
 
       async updateTaskById(id: number ,data: UpdateTaskDto) : Promise<ResponseUpdateTaskDto> {

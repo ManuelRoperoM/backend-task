@@ -22,7 +22,7 @@ export class TasksController {
       description: 'Retorna las tareas o una tarea específica.',
     })
     getTaskById(@Query('id') id?: number): Promise<unknown> {
-        if (id) {
+        if (id) {          
             return this.taskService.getTaskById(id);
         } else {
             return this.taskService.findAll();
