@@ -7,6 +7,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { ResponseUpdateTaskDto } from './dto/response-update-task.dto';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -79,6 +80,14 @@ export class TasksController {
       @Body() data: UpdateTaskDto
     ): Promise<ResponseUpdateTaskDto> {
       return this.taskService.updateTaskById(id, data);
+    }
+
+    @Put('complete/:id')
+    updateCompletedTask(
+      @Param('id') id: number,
+      @Body() data: UpdateTaskStatusDto
+    ) : Promise<ResponseUpdateTaskDto> {
+      return this.taskService.updateTaskStatusById(id, data)
     }
 
     @Delete(':id')

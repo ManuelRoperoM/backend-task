@@ -7,6 +7,7 @@ import { ResponseCreateTaskDto } from './dto/response-create-task.dto';
 import { plainToInstance } from 'class-transformer';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ResponseUpdateTaskDto } from './dto/response-update-task.dto';
+import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 @Injectable()
 export class TasksService {
     constructor(
@@ -71,7 +72,13 @@ export class TasksService {
           return { status: 'error', msge: `Error inesperado : ${error}` }
           
         }
-        
+      }
 
+      async updateTaskStatusById(id: number, data: UpdateTaskStatusDto): Promise<ResponseUpdateTaskDto> {
+        await this.tasksRepository.update(id, data)
+        const updatedTask = await this.getTaskById(id);
+        return plainToInstance(ResponseUpdateTaskDto, updatedTask, {
+          excludeExtraneousValues: true,
+        });
       }
 }

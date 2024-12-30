@@ -7,7 +7,6 @@ import { TasksEntity } from './tasks/tasks.entity';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
