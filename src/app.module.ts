@@ -20,6 +20,9 @@ dotenv.config();
     host: String(process.env.DB_HOST),
     database: String(process.env.DB_DATABASE),
     entities: [TasksEntity, UserEntity],
+    ssl: {
+      rejectUnauthorized: false,
+    },
     synchronize: true,
   }),
   TypeOrmModule.forFeature([TasksEntity, UserEntity]), 
